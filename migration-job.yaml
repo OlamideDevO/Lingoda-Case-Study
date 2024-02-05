@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: symfony-migration
+spec:
+  template:
+    spec:
+      containers:
+      - name: migration-container
+        image: your-registry/symfony-app-php-fpm:latest
+        command: ["/bin/sh", "-c"]
+        args: ["php bin/console doctrine:migrations:migrate --no-interaction"]
+        volumeMounts:
+        - name: app-code
+          mountPath: /app
+      restartPolicy: Never
+      volumes:
+      - name: app-code
+        persistentVolumeClaim:
+          claimName: symfony-app-pvc

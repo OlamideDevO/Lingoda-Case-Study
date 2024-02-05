@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: symfony-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: symfony-app
+  template:
+    metadata:
+      labels:
+        app: symfony-app
+    spec:
+      containers:
+      - name: php-fpm
+        image: your-registry/symfony-app-php-fpm:latest
+        # Add any necessary environment variables here
+      - name: nginx
+        image: your-registry/symfony-app-nginx:latest
+        ports:
+        - containerPort: 80
+  # Add the following section for the migration Job
+  template:
+    metadata:
+      labels:
+        app: symfony-app
+    spec:
+      initContainers:
+      - name: migration-init-container
+        image: your-registry/symfony-app-php-fpm:latest
+        command: ["/bin/sh", "-c"]
+        args: ["php bin/console doctrine:migrations:migrate --no-interaction"]
+        volumeMounts:
+        - name: app-code
+          mountPath: /app
+  volumes:
+  - name: app-code
+    persistentVolumeClaim:
+      claimName: symfony-app-pvc
