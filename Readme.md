@@ -14,8 +14,6 @@ git clone https://github.com/symfony/demo.git
 cd demo
 
 
-
-
 Build and push Docker images for PHP-FPM and Nginx to your container registry. Replace `your-registry` with your actual container registry:
 
 ```bash
