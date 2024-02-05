@@ -18,12 +18,12 @@ Build and push Docker images for PHP-FPM and Nginx to your container registry. R
 
 ```bash
 # Build and push PHP-FPM image
-docker build -t your-registry/symfony-app-php-fpm -f Dockerfile.php-fpm .
-docker push your-registry/symfony-app-php-fpm
+docker build -t your-registry/symfony-app-php-fpm:latest -f Dockerfile.php-fpm .
+docker push your-registry/symfony-app-php-fpm:latest
 
 # Build and push Nginx image
-docker build -t your-registry/symfony-app-nginx -f Dockerfile.nginx .
-docker push your-registry/symfony-app-nginx
+docker build -t your-registry/symfony-app-nginx:latest -f Dockerfile.nginx .
+docker push your-registry/symfony-app-nginx:latest
 
 
 Apply Kubernetes manifest files to deploy the Symfony application:
