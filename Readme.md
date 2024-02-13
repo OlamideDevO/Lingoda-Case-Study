@@ -49,6 +49,7 @@ Add the capability to run database migrations within the Kubernetes deployment f
 
     - Create a new Kubernetes Job YAML file, e.g., `migration-job.yaml`.
     - Use a container image with the Symfony CLI installed (based on PHP image).
+    - The initContainers ensures migrations are executed before the application starts serving traffic, reducing the risk of downtime or data inconsistency.
     - Mount the application code to the container.
     - Mounts volume for application code, required for running migration jobs.
     - Restart policy set to "Never" to ensure the job runs to completion and then terminates.
