@@ -1,6 +1,6 @@
 # Symfony Demo App Deployment in Kubernetes
 
-This guide provides step-by-step instructions for deploying the Symfony Demo application in a Kubernetes environment. The instructions cover containerizing the application using Docker, writing Kubernetes manifest files, and ensuring the application is accessible and functional.
+This guide provides step-by-step instructions for deploying the Symfony Demo application in a Kubernetes environment. The instructions cover containerizing the application using Docker, writing Kubernetes manifest files, scaling, database migration, routing, service discovery and ensuring the application is accessible and functional. 
 
 ## Prerequisites
 
@@ -13,6 +13,7 @@ This guide provides step-by-step instructions for deploying the Symfony Demo app
 git clone https://github.com/symfony/demo.git
 cd demo
 
+Create Dockerfiles to containerize the application
 
 Build and push Docker images for PHP-FPM and Nginx to your container registry. Replace `your-registry` with your actual container registry:
 
@@ -31,7 +32,7 @@ Apply Kubernetes manifest files to deploy the Symfony application:
 ```bash
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
-# If using Ingress
+# Using Ingress (routes HTTP traffic based on the requested host)
 kubectl apply -f ingress.yaml
 
 
@@ -49,6 +50,8 @@ Add the capability to run database migrations within the Kubernetes deployment f
     - Create a new Kubernetes Job YAML file, e.g., `migration-job.yaml`.
     - Use a container image with the Symfony CLI installed (based on PHP image).
     - Mount the application code to the container.
+    - Mounts volume for application code, required for running migration jobs.
+    - Restart policy set to "Never" to ensure the job runs to completion and then terminates.
     - Run Symfony console command for migrations in the Job.
 
 2. **Integrate with Deployment Process:**
