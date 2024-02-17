@@ -11,7 +11,7 @@ COPY . /app
 
 # Install any dependencies
 RUN apt-get update
-    # Add any necessary dependencies here (install PHP extensions and other libraries required by Symfony)
+    # Add any necessary dependencies here
 
 # Make port 9000 available to the world outside this container (used for communication between Nginx and PHP-FPM)
 EXPOSE 9000
