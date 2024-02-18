@@ -11,7 +11,8 @@ This guide provides step-by-step instructions for deploying the Symfony Demo app
 
 ```bash
 # AWS EC2 instance
-# install docker and kubernetes
+# install docker, AWS CLI, Kops cluster and Kubectl
+
 git clone https://github.com/symfony/demo.git
 cd demo
 
